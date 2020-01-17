@@ -46,11 +46,15 @@ module.exports = {
         return response.json(dev);
     },
 
-    async update() {
+    async update(request, response) {
+        const dev = await Dev.findByIdAndUpdate(request.params.id, request.body, {new: true});
 
+        return response.json(dev);
     },
 
-    async destroy() {
-        
+    async destroy(request, response) {
+        await Dev.findByIdAndRemove(request.params.id);
+
+        return response.send();
     }
 }
